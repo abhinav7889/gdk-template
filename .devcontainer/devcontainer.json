@@ -1,0 +1,26 @@
+{
+  "name": "GDK Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "waitFor": "onCreateCommand",
+  "postCreateCommand": "",
+  "workspaceFolder": "/home/docker/gitlab-development-kit",
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "GitLab.gitlab-workflow",
+        "rebornix.ruby@0.28.1",
+        "wingrunr21.vscode-ruby@0.28.0",
+        "karunamurti.haml@1.4.1",
+        "octref.vetur@0.37.3",
+        "dbaeumer.vscode-eslint@2.4.0",
+        "DavidAnson.vscode-markdownlint@0.49.0",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "forwardPorts": [3000]
+}
