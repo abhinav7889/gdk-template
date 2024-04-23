@@ -1,11 +1,10 @@
-   FROM mcr.microsoft.com/devcontainers/base:ubuntu
+FROM mcr.microsoft.com/devcontainers/base:ubuntu
 
 RUN apt update
 RUN apt install software-properties-common -y
 RUN add-apt-repository ppa:git-core/ppa -y
 RUN apt install git make curl libssl-dev libreadline-dev zlib1g-dev autoconf bison build-essential libyaml-dev libreadline-dev libncurses5-dev libffi-dev libgdbm-dev -y
 
-RUN mkdir /workspaces
 ARG USER=docker
 RUN useradd --groups sudo --no-create-home --shell /bin/bash ${USER} \
 	&& echo "${USER} ALL=(ALL) NOPASSWD:ALL" >/etc/sudoers.d/${USER} \
@@ -15,9 +14,11 @@ RUN useradd --groups sudo --no-create-home --shell /bin/bash ${USER} \
 USER docker
 WORKDIR /home/${USER}
 RUN mkdir /home/${USER}/tmp
-
+RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+RUN echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
+# verify installation
 RUN git clone https://gitlab.com/gitlab-org/gitlab-development-kit.git
-WORKDIR gitlab-development-kit
+WORKDIR /home/${USER}/gitlab-development-kit
 
 RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
 
