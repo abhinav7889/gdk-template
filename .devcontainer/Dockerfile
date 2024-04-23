@@ -16,7 +16,11 @@ WORKDIR /home/${USER}
 RUN mkdir /home/${USER}/tmp
 RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
 RUN echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
+RUN echo 'export ASDF_DIR="$HOME/.asdf"' >> ~/.bashrc
+ENV ASDF_DIR=/home/docker/.asdf
+ENV PATH="$ASDF_DIR/bin:$ASDF_DIR/shims:$PATH"
 # verify installation
+RUN . ~/.bashrc && asdf --version
 RUN git clone https://gitlab.com/gitlab-org/gitlab-development-kit.git
 WORKDIR /home/${USER}/gitlab-development-kit
 
